@@ -1,8 +1,31 @@
 import PropTypes from "prop-types";
 
-const LibrarySong = ({ song, songs, setCurrentSongs, audioRef, isPlaying }) => {
+const LibrarySong = ({
+    id,
+    song,
+    songs,
+    setSongs,
+    setCurrentSongs,
+    audioRef,
+    isPlaying,
+}) => {
     const songSelectHandler = () => {
         setCurrentSongs(song);
+        // change Active state of song
+        const newSong = songs.map((song) => {
+            if (song.id === id) {
+                return {
+                    ...song,
+                    active: true,
+                };
+            } else {
+                return {
+                    ...song,
+                    active: false,
+                };
+            }
+        });
+        setSongs(newSong)
         // check if the song is playing
         if (isPlaying) {
             const playPromise = audioRef.current.play();
@@ -15,7 +38,10 @@ const LibrarySong = ({ song, songs, setCurrentSongs, audioRef, isPlaying }) => {
         }
     };
     return (
-        <div onClick={songSelectHandler} className="library-song">
+        <div
+            onClick={songSelectHandler}
+            className={`library-song ${song.active ? "selected" : ""}`}
+        >
             <img src={song.cover} alt={song.name} />
             <div className="song-description">
                 <h3>{song.name}</h3>
@@ -30,6 +56,7 @@ LibrarySong.propTypes = {
     isPlaying: PropTypes.bool,
     song: PropTypes.object,
     songs: PropTypes.array,
+    setSongs: PropTypes.func,
     setCurrentSongs: PropTypes.func,
 };
 export default LibrarySong;

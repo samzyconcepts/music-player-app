@@ -1,4 +1,3 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,7 +7,7 @@ import {
     faAngleRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Player = ({ audioRef, currentSong, isPlaying, setIsPlaying, songInfo, setSongInfo }) => {
+const Player = ({ audioRef, isPlaying, setIsPlaying, songInfo, setSongInfo }) => {
     // Event Handler
     const playSongHandler = () => {
         if (isPlaying) {
@@ -39,7 +38,7 @@ const Player = ({ audioRef, currentSong, isPlaying, setIsPlaying, songInfo, setS
                 <p>{getTime(songInfo.currentTime)}</p>
                 <input
                     min={0}
-                    max={songInfo.duration}
+                    max={songInfo.duration || 0}
                     value={songInfo.currentTime}
                     onChange={dragHandler}
                     type="range"
@@ -69,9 +68,10 @@ const Player = ({ audioRef, currentSong, isPlaying, setIsPlaying, songInfo, setS
 };
 
 Player.propTypes = {
-    currentSong: PropTypes.object.isRequired,
     isPlaying: PropTypes.bool,
     setIsPlaying: PropTypes.func,
+    songInfo: PropTypes.object,
+    setSongInfo: PropTypes.func,
     audioRef: PropTypes.object,
 };
 export default Player;
