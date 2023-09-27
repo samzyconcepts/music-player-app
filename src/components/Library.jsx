@@ -6,7 +6,7 @@ import LibrarySong from "./LibrarySong";
 const Library = ({
     songs,
     setSongs,
-    setCurrentSongs,
+    setCurrentSong,
     audioRef,
     isPlaying,
     libraryStatus,
@@ -22,7 +22,7 @@ const Library = ({
                         song={song}
                         songs={songs}
                         setSongs={setSongs}
-                        setCurrentSongs={setCurrentSongs}
+                        setCurrentSong={setCurrentSong}
                         audioRef={audioRef}
                         isPlaying={isPlaying}
                     />
@@ -37,7 +37,7 @@ Library.propTypes = {
     isPlaying: PropTypes.bool,
     songs: PropTypes.array,
     setSongs: PropTypes.func,
-    setCurrentSongs: PropTypes.func,
+    setCurrentSong: PropTypes.func,
     libraryStatus: PropTypes.bool,
 };
 export default Library;
