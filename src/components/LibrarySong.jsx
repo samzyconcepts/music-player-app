@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { playAudio } from "../util";
 
 const LibrarySong = ({
     id,
@@ -10,8 +9,11 @@ const LibrarySong = ({
     audioRef,
     isPlaying,
 }) => {
-    const songSelectHandler = () => {
-        setCurrentSong(song);
+    const songSelectHandler = async() => {
+        // await setCurrentSong(song);
+        const selectedSong = songs.filter((state) => state.id === id);
+        await setCurrentSong(selectedSong[0]);
+        
         // change Active state of song
         const newSong = songs.map((song) => {
             if (song.id === id) {
@@ -26,9 +28,9 @@ const LibrarySong = ({
                 };
             }
         });
-        setSongs(newSong)
+        setSongs(newSong);
 
-        playAudio(isPlaying, audioRef)
+        if (isPlaying) audioRef.current.play();
     };
     return (
         <div
